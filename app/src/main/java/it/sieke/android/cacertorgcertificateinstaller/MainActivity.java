@@ -1,11 +1,15 @@
 package it.sieke.android.cacertorgcertificateinstaller;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.*;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,6 +39,7 @@ public class MainActivity extends Activity {
     private boolean certsInstalled = false;
 
     Button installButton;
+    TextView textViewLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +47,34 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         installButton = (Button) findViewById(R.id.addCertButton);
+        textViewLog = (TextView) findViewById(R.id.textViewLog);
 
         packageName = this.getPackageName();
         certsInstalled = checkCertInstalled();
         refreshInstallMode();
 
+        AlertDialog ad = new AlertDialog.Builder(this).create();
+        ad.setCancelable(false); // This blocks the 'BACK' button
+        ad.setMessage(getResources().getString(R.string.welcometext) + "\n\n" + "This app is licensed under GPL. However you should not trust it blindly and check if the correct certificates were added.");
+        ad.setButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        ad.show();
+
         if (!RootTools.isRootAvailable()) {
             //TODO root not available!
+        } else {
+            writeLog("found su");
         }
 
         if (!RootTools.isAccessGiven()) {
             //TODO no access
             Log.w(packageName, Environment.getRootDirectory().toString() + "NOOOOOO ACCESS!!!! :-(");
-
+        } else {
+            writeLog("root access was granted");
         }
 
 
@@ -66,26 +86,46 @@ public class MainActivity extends Activity {
     }
 
     private void installButtonClicked() {
+        boolean certsInstalledOld = certsInstalled;
         if (!certsInstalled) {
             try {
+                writeLog("starting to install certificates");
                 installCerts();
             } catch (IOException e) {
                 Log.w(packageName, "error: " + e.getMessage());
             } catch (RootDeniedException e) {
-                e.printStackTrace();
+                Log.w(packageName, "error: " + e.getMessage());
             } catch (TimeoutException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
+                Log.w(packageName, "error: " + e.getMessage());
             }
         } else {
-            uninstallCerts();
+            try {
+                writeLog("starting to uninstall certificates");
+                uninstallCerts();
+            } catch (IOException e) {
+                Log.w(packageName, "error: " + e.getMessage());
+            } catch (RootDeniedException e) {
+                Log.w(packageName, "error: " + e.getMessage());
+            } catch (TimeoutException e) {
+                Log.w(packageName, "error: " + e.getMessage());
+            }
+        }
+
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
         }
 
         certsInstalled = checkCertInstalled();
+
+        if (!certsInstalledOld && certsInstalled) {
+            writeLog("=== FINISH === " + System.getProperty("line.separator") + "everything went fine, certificates are now installed!");
+        }
+
+        if (certsInstalledOld && !certsInstalled) {
+            writeLog("=== FINISH === " + System.getProperty("line.separator") + "everything went fine, certificates are now removed!");
+        }
+
         refreshInstallMode();
 
     }
@@ -100,14 +140,23 @@ public class MainActivity extends Activity {
 
 
     private void installCerts() throws IOException, TimeoutException, RootDeniedException {
+        writeLog("writing temporary files to sdcard");
+
         moveRawFileToSdCard(R.raw.cert_5ed36f99_0, "5ed36f99.0");
         moveRawFileToSdCard(R.raw.cert_e5662767_0, "e5662767.0");
 
+        writeLog("remounting system partition for writing");
         executeCommand("su -c 'mount -o remount,rw /system'");
+
+        writeLog("copying certificates to system partition");
         executeCommand("su -c 'cat " + Environment.getExternalStorageDirectory() + "/5ed36f99.0 > /system/etc/security/cacerts/5ed36f99.0'");
         executeCommand("su -c 'cat " + Environment.getExternalStorageDirectory() + "/e5662767.0 > /system/etc/security/cacerts/e5662767.0'");
+
+        writeLog("writing file permissions");
         executeCommand("su -c 'chmod 644 /system/etc/security/cacerts/5ed36f99.0'");
         executeCommand("su -c 'chmod 644 /system/etc/security/cacerts/e5662767.0'");
+
+        writeLog("remounting system partition to read only");
         executeCommand("su -c 'mount -o remount,ro /system'");
     }
 
@@ -150,8 +199,16 @@ public class MainActivity extends Activity {
     }
 
 
-    private void uninstallCerts() {
+    private void uninstallCerts() throws IOException, RootDeniedException, TimeoutException {
+        writeLog("remounting system partition for writing");
+        executeCommand("su -c 'mount -o remount,rw /system'");
 
+        writeLog("removing certificate files");
+        executeCommand("su -c 'rm /system/etc/security/cacerts/5ed36f99.0'");
+        executeCommand("su -c 'rm /system/etc/security/cacerts/e5662767.0'");
+
+        writeLog("remounting system partition to read only");
+        executeCommand("su -c 'mount -o remount,ro /system'");
     }
 
     private boolean checkCertInstalled() {
@@ -215,5 +272,9 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void writeLog(String text) {
+        textViewLog.setText(text + System.getProperty("line.separator") + System.getProperty("line.separator") + textViewLog.getText());
     }
 }

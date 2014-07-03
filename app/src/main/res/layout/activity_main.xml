@@ -23,5 +23,24 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="30dp" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/textViewLog"
+        android:layout_below="@+id/addCertButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tvWelcomeText"
+        android:autoText="false"
+        android:background="#ff616161"
+        android:layout_marginTop="20dp"
+        android:typeface="monospace"
+        android:textColor="#ff1cd237"
+        android:editable="false"
+        android:gravity="left|top"
+        android:textSize="16sp"
+        android:padding="7dp"
+        android:ellipsize="end" />
+
 
 </RelativeLayout>
