@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CACert.org certificate installer</string>
+    <string name="welcometext">This app will add CACert.org root certificates to system trusted certificates. Therefore it requires root access to your device. \nAfter the process has completed, your fone will reboot.</string>
+    <string name="action_settings">Settings</string>
+    <string name="addCertButtonText">Add certificates</string>
+    <string name="delCertButtonText">Remove certificates</string>
+
+</resources>
