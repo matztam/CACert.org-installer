@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
 
         AlertDialog ad = new AlertDialog.Builder(this).create();
         ad.setCancelable(false); // This blocks the 'BACK' button
-        ad.setMessage(getResources().getString(R.string.welcometext) + "\n\n" + "This app is licensed under GPL. However you should not trust it blindly and check if the correct certificates were added.");
+        ad.setMessage("This app is licensed under GPL. However you should not trust it blindly and check if the correct certificates were added.");
         ad.setButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
