@@ -1,10 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+This file is part of CACert.org certificate installer.
+
+CACert.org certificate installer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+CACert.org certificate installer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with CACert.org certificate installer.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
 <resources>
 
     <string name="app_name">CACert.org certificate installer</string>
-    <string name="welcometext">This app will add CACert.org root certificates to system trusted certificates. Therefore it requires root access to your device. \nAfter the process has completed, you should reboot your device.</string>
+    <string name="welcometext">This app will add CACert.org root certificates to system trusted certificates. Therefore it requires root access to your device.\n\nAfter the process has completed, you should reboot your device.</string>
     <string name="action_about">About</string>
     <string name="addCertButtonText">Add certificates</string>
     <string name="delCertButtonText">Remove certificates</string>
+    <string name="about">This app is released under GPL (see http://www.gnu.org/copyleft/gpl.html)\nYou can find the source code at the project’s website: http://cacertinstaller.sieke.it.\n\nIf you encounter any problems, you can file a ticket under http://cacertinstaller.sieke.it/issues or send an email to cacertinstaller@sieke.it.
+    </string>
 
 </resources>

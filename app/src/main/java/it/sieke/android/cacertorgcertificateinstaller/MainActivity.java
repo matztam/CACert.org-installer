@@ -1,3 +1,21 @@
+/*
+This file is part of CACert.org certificate installer.
+
+CACert.org certificate installer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+CACert.org certificate installer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with CACert.org certificate installer.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 package it.sieke.android.cacertorgcertificateinstaller;
 
 import android.app.Activity;
@@ -76,6 +94,12 @@ public class MainActivity extends Activity {
                 installButtonClicked();
             }
         });
+
+
+    }
+
+    private void showAboutDialog() {
+
     }
 
     private boolean dieIfRootUnavailable() {
@@ -224,7 +248,8 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            AboutBox.Show(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     This file is part of CACert.org certificate installer.
 
     CACert.org certificate installer is free software: you can redistribute it and/or modify
@@ -15,12 +15,22 @@
     along with CACert.org certificate installer.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
-    <item
-        android:id="@+id/action_about"
-        android:title="@string/action_about"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
-</menu>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aboutView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:id="@+id/aboutLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/aboutText"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+</ScrollView>
