@@ -17,8 +17,7 @@ along with CACert.org certificate installer.  If not, see <http://www.gnu.org/li
 
 
 <resources>
-    <string name="certFile1Path">/system/etc/security/cacerts/5ed36f99.0</string>
-    <string name="app_name">CACert.org certificate installer</string>
+    <string name="app_name">CACert.org installer</string>
     <string name="app_description">This app will add CACert.org root certificates to system trusted certificates. Therefore it requires root access to your device.\n\nAfter the process has completed, you should reboot your device.</string>
     <string name="action_about">About</string>
     <string name="add_cert_button_text">Add certificates</string>
