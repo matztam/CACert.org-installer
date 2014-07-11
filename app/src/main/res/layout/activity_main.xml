@@ -27,7 +27,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="@string/welcometext"
+        android:text="@string/app_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvWelcomeText" />
@@ -35,7 +35,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addCertButtonText"
+        android:text="@string/add_cert_button_text"
         android:id="@+id/addCertButton"
         android:layout_below="@+id/tvWelcomeText"
         android:layout_alignParentLeft="true"
