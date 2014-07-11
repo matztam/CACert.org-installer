@@ -263,8 +263,6 @@ public class MainActivity extends Activity {
         return sb.toString();
     }*/
 
-    /*test*/
-
     private void writeLog(String text) {
         textViewLog.setText(textViewLog.getText() + "\n\n" + text);
         final ScrollView sc = (ScrollView) findViewById(R.id.scrollView);
