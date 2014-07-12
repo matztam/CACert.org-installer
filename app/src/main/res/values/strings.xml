@@ -22,7 +22,7 @@ along with CACert.org certificate installer.  If not, see <http://www.gnu.org/li
     <string name="action_about">About</string>
     <string name="add_cert_button_text">Add certificates</string>
     <string name="del_cert_button_text">Remove certificates</string>
-    <string name="about">This app is released under GPL (see http://www.gnu.org/copyleft/gpl.html)\nYou can find the source code at the project’s website: http://cacertinstaller.sieke.it.\n\nIf you encounter any problems, you can file a ticket under http://cacertinstaller.sieke.it/issues or send an email to cacertinstaller@sieke.it.</string>
+    <string name="about">This app is released under GPL (see http://www.gnu.org/copyleft/gpl.html)\nYou can find the source code at the project’s website: http://cacertinstaller.sieke.it.\n\nIf you encounter any problems, you can file a ticket under http://cacertinstaller.sieke.it/issues or send an email to cacertinstaller201407@sieke.it.</string>
     <string name="welcome_message">This app is licensed under GPL. However, you should not trust it blindly and check if the correct certificates were added.</string>
     <string name="no_root_message">This app requires root access.\n\nBecause root seems not to be available, or root access was not granted it will now quit.</string>
     <string name="root_granted">root access was granted</string>
