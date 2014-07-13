@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 14
         versionCode 2
-        versionName '1.1 Birkenhead'
+        versionName '1.1'
     }
     buildTypes {
         release {
