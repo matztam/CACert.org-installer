@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CACert.orgcertificateinstaller.iml" filepath="$PROJECT_DIR$/CACert.orgcertificateinstaller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/cacertorgcertificateinstaller.iml" filepath="$PROJECT_DIR$/app/cacertorgcertificateinstaller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
