@@ -23,7 +23,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +56,8 @@ public class MainActivity extends Activity {
     private static final String CERTFILE1_FINGERPRINT = "a6:1b:37:5e:39:0d:9c:36:54:ee:bd:20:31:46:1f:6b";
     private static final String CERTFILE2_PATH = "/system/etc/security/cacerts/e5662767.0";
     private static final String CERTFILE2_FINGERPRINT = "f7:25:12:82:4e:67:b5:d0:8d:92:b7:7c:0b:86:7a:42";
+    private static String CACHE_DIR;
+
     public static String packageName;
     Button installButton;
     TextView textViewLog;
@@ -67,13 +68,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        CACHE_DIR = getApplicationContext().getCacheDir().getAbsolutePath();
         installButton = (Button) findViewById(R.id.addCertButton);
         textViewLog = (TextView) findViewById(R.id.textViewLog);
-
-
         packageName = this.getPackageName();
+
         certsInstalled = checkCertInstalled();
 
 
@@ -174,7 +173,7 @@ public class MainActivity extends Activity {
 
     private void moveRawFileToSdCard(int resource, String targetFilename) throws IOException {
         InputStream in = getResources().openRawResource(resource);
-        FileOutputStream out = new FileOutputStream(Environment.getExternalStorageDirectory() + "/" + targetFilename);
+        FileOutputStream out = new FileOutputStream(CACHE_DIR + "/" + targetFilename);
 
         byte[] buff = new byte[1024];
         int read;
@@ -333,6 +332,8 @@ public class MainActivity extends Activity {
         protected Void doInBackground(Boolean... params) {
             boolean install = params[0];
 
+            publishProgress("\n\n\n");
+
             try {
                 if (install) {
                     installCerts();
@@ -365,8 +366,8 @@ public class MainActivity extends Activity {
             executeCommand("mount -o remount,rw /system");
 
             publishProgress(getString(R.string.copying_cert_files_to_system));
-            executeCommand("cat " + Environment.getExternalStorageDirectory() + "/5ed36f99.0 > /system/etc/security/cacerts/5ed36f99.0");
-            executeCommand("cat " + Environment.getExternalStorageDirectory() + "/e5662767.0 > /system/etc/security/cacerts/e5662767.0");
+            executeCommand("cat " + CACHE_DIR + "/5ed36f99.0 > /system/etc/security/cacerts/5ed36f99.0");
+            executeCommand("cat " + CACHE_DIR + "/e5662767.0 > /system/etc/security/cacerts/e5662767.0");
 
             publishProgress(getString(R.string.writing_file_permissions));
             executeCommand("chmod 644 /system/etc/security/cacerts/5ed36f99.0");
@@ -376,8 +377,8 @@ public class MainActivity extends Activity {
             executeCommand("mount -o remount,ro /system");
 
             publishProgress(getString(R.string.deleteing_tmp_files));
-            executeCommand("rm " + Environment.getExternalStorageDirectory() + "/5ed36f99.0");
-            executeCommand("rm " + Environment.getExternalStorageDirectory() + "/e5662767.0");
+            executeCommand("rm " + CACHE_DIR + "/5ed36f99.0");
+            executeCommand("rm " + CACHE_DIR + "/e5662767.0");
 
         }
 
